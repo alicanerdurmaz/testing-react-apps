@@ -8,7 +8,7 @@ const ServerTest = () => {
     const response = await fetch('http://localhost:8080/test')
 
     if (response.status === 404) {
-      alert('Something went wrong')
+      setMessage('Something went wrong')
       return
     }
 
