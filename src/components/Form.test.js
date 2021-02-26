@@ -13,7 +13,7 @@ jest.mock('./formValidation')
 test('form renders correctly', () => {
   const { getByPlaceholderText, getByRole } = render(<Form />)
 
-  expect(getByPlaceholderText('İsim')).toBeInTheDocument()
+  expect(getByPlaceholderText(/^İsim/i)).toBeInTheDocument()
   expect(getByPlaceholderText(/soyisim/i)).toBeInTheDocument()
   expect(getByPlaceholderText(/parola/i)).toBeInTheDocument()
   expect(getByPlaceholderText(/e-posta/i)).toBeInTheDocument()
@@ -43,7 +43,7 @@ test('form validation works properly', () => {
   userEvent.click(getByRole('button', { name: /kayıt/i }))
   expect(errorText).toHaveTextContent('error')
 
-  userEvent.type(getByPlaceholderText('İsim'), 'test')
+  userEvent.type(getByPlaceholderText(/^İsim/i), 'test')
   formValidation.mockReturnValueOnce(false)
 
   expect(errorText).toHaveTextContent('')
@@ -59,7 +59,7 @@ test('submit works properly', () => {
 
   const { getByRole, getByText, getByPlaceholderText } = render(<App />)
 
-  userEvent.paste(getByPlaceholderText('İsim'), mockFormData.firstName)
+  userEvent.paste(getByPlaceholderText(/^İsim/i), mockFormData.firstName)
   userEvent.paste(getByPlaceholderText(/soyisim/i), mockFormData.lastName)
   userEvent.paste(getByPlaceholderText(/parola/i), mockFormData.password)
   userEvent.paste(getByPlaceholderText(/e-posta/i), mockFormData.email)
